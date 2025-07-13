@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="https://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<style>
+    .login {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 100px auto;
+        width: 300px;
+        padding: 20px;
+        border: 1px solid #ddd;
+    }
+    .login div { width: 100%; margin-bottom: 15px; }
+    .login input {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+    }
+    .login button {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    .login button:hover { background-color: #45a049; }
+</style>
+<body>
+    <h1 style="text-align: center">Login</h1>
+    <!-- 修改form标签，添加id方便JS绑定事件 -->
+    <form id="loginForm" class="login">
+        <div>
+            <label for="username">用户名:</label>
+            <!-- 添加name属性（后端通过此名称获取值） -->
+            <input type="text" id="username" name="username" placeholder="Username" required>
+        </div>
+        <div>
+            <label for="password">密码:</label>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+        </div>
+        <button type="submit">登录</button>
+    </form>
+
+    <script>
+        // 使用jQuery绑定表单提交事件
+        $(document).ready(function() {
+            $('#loginForm').submit(function(e) {
+                e.preventDefault(); // 阻止表单默认提交（避免页面跳转）
+                
+                // 获取输入值
+                var username = $('#username').val().trim();
+                var password = $('#password').val().trim();
+
+                // 发送AJAX请求到login.php
+                $.ajax({
+                    url: 'login.php',       // 后端接口地址
+                    type: 'POST',           // 提交方式
+                    data: {                 // 发送的数据（自动转为key=value格式）
+                        username: username,
+                        password: password
+                    },
+                    dataType: 'json',       // 预期返回JSON格式
+                    success: function(res) {
+                        // 成功回调（res是后端返回的JSON对象）
+                        if (res.code === 200) {
+                            alert('登录成功！');
+                            // 可选：跳转到其他页面（如首页）
+                            // window.location.href = 'index.html';
+                        } else {
+                            alert('登录失败：' + res.msg);
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('网络错误，请稍后再试');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
