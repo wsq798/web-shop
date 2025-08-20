@@ -1,20 +1,1157 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>My Web Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
+    <link href="https://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="https://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./index.css">
+
+    <title>My shop</title>
 </head>
 
 <body>
-    <h1>Welcome to My Web Shop</h1>
-    <p>Thank you for visiting our website. We hope you find what you are looking for.</p>
-    <p>We have the following products available:</p>
-    <ul>
-        <li>Product 1</li>
-        <li>Product 2</li>
-        <li>Product 3</li>
-    </ul>
-    <p>Please <a href="contact.html">contact us</a> if you have any questions or comments.</p>
+    <!-- 导航栏 -->
+    <nav class="top">
+        <a href="index.html">
+            <!-- bootstrap3.0版本使用语法 -->
+            <span class="glyphicon glyphicon-home redColor"></span>
+            天猫首页
+        </a>
+        <span> 欢迎来到天猫商城！</span>
+        <a href="login.html">登录</a>
+        <a href="register.html">注册</a>
+        <!-- bootstrap3.0版本使用语法 -->
+        <span class="pull-right">
+            <a href="#nowhere">我的订单</a>
+            <a href="#nowhere">
+                <!-- bootstrap3.0版本使用语法 -->
+                <span class="glyphicon glyphicon-shopping-cart redColor"></span>
+                购物车 </a>
+        </span>
+    </nav>
+    <!-- 导航栏结束 -->
+
+    <!-- 搜索栏 -->
+    <a href="index.html"><img class="logo" src="img/site/logo.gif" id="logo"></a>
+    <form method="post">
+        <div class="searchDiv">
+            <input type="text" placeholder="时尚男鞋 太阳镜" name="keyword">
+            <button class="searchButton" type="button">搜索</button>
+            <div class="searchBelow">
+                <span><a href="#nowhere">平衡车</a><span>|</span></span>
+                <span><a href="#nowhere">扫地机器人</a><span>|</span></span>
+                <span><a href="#nowhere">原汁机</a><span>|</span></span>
+                <span><a href="#nowhere">冰箱</a><span>|</span></span>
+            </div>
+        </div>
+    </form>
+    <!-- 搜索栏结束 -->
+
+    <!-- 菜单列表 -->
+    <title>模仿天猫商城</title>
+    <div class="homepageDiv">
+        <script>
+            $(function () {
+                // 当鼠标移入每个分类项时触发
+                $("div.eachCategory").mouseenter(function () {
+                    // 获取当前分类项的cid属性值
+                    var cid = $(this).attr("cid");
+                    // 显示对应cid的产品侧边栏
+                    $("div.productsAsideCategorys[cid=" + cid + "]").show();
+                });
+
+                // 当鼠标离开每个分类项时触发
+                $("div.eachCategory").mouseleave(function () {
+                    // 获取当前分类项的cid属性值
+                    var cid = $(this).attr("cid");
+                    // 隐藏对应cid的产品侧边栏
+                    $("div.productsAsideCategorys[cid=" + cid + "]").hide();
+                });
+
+                // 当鼠标移入产品侧边栏时触发
+                $("div.productsAsideCategorys").mouseenter(function () {
+                    // 保持该侧边栏显示状态
+                    $(this).show();
+                });
+
+                // 当鼠标离开产品侧边栏时触发
+                $("div.productsAsideCategorys").mouseleave(function () {
+                    // 隐藏该侧边栏
+                    $(this).hide();
+                });
+
+                // 猫耳朵效果实现
+                $("div.rightMenu span").mouseenter(function () {
+                    // 获取当前span元素的左侧位置
+                    var left = $(this).position().left;
+                    // 获取当前span元素的顶部位置
+                    var top = $(this).position().top;
+                    // 获取当前span元素的宽度
+                    var width = $(this).css("width");
+                    // 计算猫耳朵图片的目标左侧位置（居中显示）
+                    var destLeft = parseInt(left) + parseInt(width) / 2;
+                    // 设置猫耳朵图片的左侧位置
+                    $("img#catear").css("left", destLeft);
+                    // 设置猫耳朵图片的顶部位置（在元素上方）
+                    $("img#catear").css("top", top - 20);
+                    // 淡入显示猫耳朵图片
+                    $("img#catear").fadeIn(500);
+                });
+
+                // 当鼠标离开右侧菜单项时触发
+                $("div.rightMenu span").mouseleave(function () {
+                    // 隐藏猫耳朵图片
+                    $("img#catear").hide();
+                });
+
+                // 获取轮播图元素的左侧偏移量
+                var left = $("div#carousel-of-product").offset().left;
+                // 设置分类菜单的左侧位置（与轮播图对齐）
+                $("div.categoryMenu").css("left", left - 20);
+                // 设置分类轮播标题的左侧边距
+                $("div.categoryWithCarousel div.head").css("margin-left", left);
+                // 设置产品侧边栏的左侧位置（与轮播图对齐）
+                $("div.productsAsideCategorys").css("left", left - 20);
+            });
+        </script>
+
+        <!-- 猫耳朵图片 -->
+        <img src="./img/site/catear.png" id="catear" class="catear" />
+        <div class="categoryWithCarousel">
+            <!-- 轮播图头部 -->
+            <div class="headbar show1">
+                <!-- 轮播图左侧子菜单 -->
+                <div class="head">
+                    <span style="margin-left: 10px;" class="glyphicon glyphicon-th-list"></span>
+                    <span style="margin-left: 10px;">商品分类</span>
+                </div>
+                <!-- 导航条右侧子菜单 -->
+                <div class="rightMenu">
+                    <span><a href="#nowhere"><img src="./img/site/chaoshi.png"></a></span>
+                    <span><a href="#nowhere"><img src="./img/site/guoji.png"></a></span>
+                    <span><a href="#nowhere">平板电视</a></span>
+                    <span><a href="#nowhere">电热水器</a></span>
+                    <span><a href="#nowhere">空调</a></span>
+                    <span><a href="#nowhere">电视机</a></span>
+                </div>
+            </div>
+
+            <div style="position: relative;">
+                <div class="categoryMenu">
+                    <div class="eachCategory" cid="83">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">平板电视</a>
+                    </div>
+                    <div class="eachCategory" cid="82">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">家具</a>
+                    </div>
+                    <div class="eachCategory" cid="81">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">家电</a>
+                    </div>
+                    <div class="eachCategory" cid="80">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">电热水器</a>
+                    </div>
+                    <div class="eachCategory" cid="79">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">平衡车</a>
+                    </div>
+                    <div class="eachCategory" cid="78">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">扫地机器人</a>
+                    </div>
+                    <div class="eachCategory" cid="77">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">原汁机</a>
+                    </div>
+                    <div class="eachCategory" cid="76">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">冰箱</a>
+                    </div>
+                    <div class="eachCategory" cid="75">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">空调</a>
+                    </div>
+                    <div class="eachCategory" cid="74">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">女表</a>
+                    </div>
+                    <div class="eachCategory" cid="73">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">男表</a>
+                    </div>
+                    <div class="eachCategory" cid="72">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">男士手拿包</a>
+                    </div>
+                    <div class="eachCategory" cid="71">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">男士西服</a>
+                    </div>
+                    <div class="eachCategory" cid="69">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">时尚男鞋</a>
+                    </div>
+                    <div class="eachCategory" cid="68">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">品牌女装</a>
+                    </div>
+                    <div class="eachCategory" cid="64">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">太阳镜</a>
+                    </div>
+                    <div class="eachCategory" cid="60">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <a href="#nowhere">安全座椅</a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="position: relative; left: 0; top: 0;"></div>
+            <!-- 生成6个随机数，如果为1，则字体变蓝色 -->
+            <script>
+                /*选择所有符合条件的元素：
+                1. 先找到class为productsAsideCategorys的div
+                2. 在其内部找到class为row的div
+                3. 最后找到这些div中的所有<a>标签（超链接）
+                */
+                $(function () {
+                    $("div.productsAsideCategorys div.row a").each(function () {
+                        // math.round() 方法返回一个数字，四舍五入到最接近的整数
+                        var v = Math.round(Math.random() * 6);
+                        if (v == 1) {
+                            $(this).css("color", "#87CEFA")
+                        }
+                    });
+
+                });
+            </script>
+
+            <!-- 分类83的推荐商品 -->
+            <div cid="83" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">4K HDR超高清影院屏</a>
+                    <a href="#nowhere">周末家庭观影套餐</a>
+                    <a href="#nowhere">2024超薄QLED新品</a>
+                    <a href="#nowhere">55英寸全面屏设计</a>
+                    <a href="#nowhere">WiFi6+蓝牙5.2双连接</a>
+                    <a href="#nowhere">MEMC运动补偿技术</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">HDMI 2.1满血接口×3</a>
+                    <a href="nowhere">赠1年爱奇艺会员</a>
+                    <a href="#nowhere">秒杀价¥1999（限前2小时）</a>
+                    <a href="#nowhere">杜比全景声+DTS-HD双解码</a>
+                    <a href="#nowhere">65英寸98%屏占比</a>
+                    <a href="#nowhere">A73四核+3GB内存</a>
+                    <a href="#nowhere">创维品牌日满3000减500</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">放弃赠品立减200元</a>
+                    <a href="nowhere">Mini LED背光新品首发</a>
+                    <a href="#nowhere">8K量子点广色域屏</a>
+                    <a href="#nowhere">店铺券+平台券叠减1500</a>
+                    <a href="#nowhere">120Hz高刷+VRR可变刷新率</a>
+                    <a href="#nowhere">暑期学生专享补贴300</a>
+                    <a href="#nowhere">以旧换新最高抵800</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">HarmonyOS 4.0智能系统</a>
+                    <a href="nowhere">星空灰金属一体化机身</a>
+                    <a href="#nowhere">预售付定立减300（抵500）</a>
+                    <a href="#nowhere">LG原装IPS 4K硬屏</a>
+                    <a href="#nowhere">客厅C位爆款（月销10W+）</a>
+                    <a href="#nowhere">A55八核处理器+64GB存储</a>
+                    <a href="#nowhere">前100名赠Soundbar音响</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">75英寸巨幕沉浸体验</a>
+                    <a href="nowhere">远场语音控制（支持方言）</a>
+                    <a href="#nowhere">新品首发价¥3499</a>
+                    <a href="#nowhere">93% DCI-P3电影级色域</a>
+                    <a href="#nowhere">游戏模式延迟低至8ms</a>
+                    <a href="#nowhere">支持HDR10+格式</a>
+                    <a href="#nowhere">晒单返现50元</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">TCL华星光电自制屏</a>
+                    <a href="nowhere">AI智能画质优化</a>
+                    <a href="#nowhere">套购冰箱洗衣机省800</a>
+                    <a href="#nowhere">43英寸卧室专用款</a>
+                    <a href="#nowhere">防蓝光护眼模式</a>
+                    <a href="#nowhere">2+16GB存储组合</a>
+                    <a href="#nowhere">三年整机保修服务</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+
+            <!-- 分类82家具的推荐商品 -->
+            <div cid="82" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">8.23预售享9折+免息分期</a>
+                    <a href="#nowhere">实木沙发爆款榜TOP3</a>
+                    <a href="#nowhere">意大利进口头层黄牛皮</a>
+                    <a href="#nowhere">多功能电动可躺三人位</a>
+                    <a href="#nowhere">北美黑胡桃木实木框架</a>
+                    <a href="#nowhere">全香樟木防虫柜体</a>
+                    <a href="#nowhere">工厂直营免邮+送装一体</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">预售赠天然乳胶枕一对</a>
+                    <a href="#nowhere">北欧风白蜡木餐桌椅组合</a>
+                    <a href="#nowhere">进口头层牛皮接触面沙发</a>
+                    <a href="#nowhere">电动可躺贵妃榻（带USB充电）</a>
+                    <a href="#nowhere">俄罗斯樟子松实木床架（1.8m）</a>
+                    <a href="#nowhere">全实木环保水性漆（无甲醛）</a>
+                    <a href="#nowhere">支持定制尺寸/颜色（周期15天）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">新中式红木沙发五件套</a>
+                    <a href="#nowhere">满10000减1500（限8.23当天）</a>
+                    <a href="#nowhere">进口白橡木茶几电视柜组合</a>
+                    <a href="#nowhere">可调节靠背角度沙发</a>
+                    <a href="#nowhere">榉木实木餐桌（可伸缩）</a>
+                    <a href="#nowhere">防刮耐磨科技布面料</a>
+                    <a href="#nowhere">5年质保+终身维护</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">日式榻榻米储物床</a>
+                    <a href="#nowhere">预售付200抵500（限前50名）</a>
+                    <a href="#nowhere">轻奢风大理石餐桌</a>
+                    <a href="#nowhere">L型转角沙发（小户型专用）</a>
+                    <a href="#nowhere">胡桃木衣柜（推拉门设计）</a>
+                    <a href="#nowhere">三防科技布（防水防污防刮）</a>
+                    <a href="#nowhere">免费上门量房设计</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+
+            <!-- 分类81家电的推荐商品 -->
+            <div cid="81" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">预售省300+赠安装礼包</a>
+                    <a href="#nowhere">电热水器热销榜TOP1</a>
+                    <a href="#nowhere">一级能效（省电30%）</a>
+                    <a href="#nowhere">60L储水式速热（8分钟升温）</a>
+                    <a href="#nowhere">专利防电墙+漏电保护</a>
+                    <a href="#nowhere">手机APP远程控制</a>
+                    <a href="#nowhere">免费上门安装（含配件）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">三档功率可调（2000W/3000W/5000W）</a>
+                    <a href="#nowhere">购赠双立人炊具五件套</a>
+                    <a href="#nowhere">半胆/全胆加热智能切换</a>
+                    <a href="#nowhere">周年庆底价¥899（日常价1299）</a>
+                    <a href="#nowhere">8倍迅热增容（全家连续洗）</a>
+                    <a href="#nowhere">天猫精灵语音互联</a>
+                    <a href="#nowhere">24小时恒温保温（±0.5℃）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">即热式电热水器（无需储水）</a>
+                    <a href="#nowhere">满2000减500（限8.23-8.25）</a>
+                    <a href="#nowhere">二级能效（节能认证）</a>
+                    <a href="#nowhere">50L扁桶设计（节省空间）</a>
+                    <a href="#nowhere">镁棒终身免更换技术</a>
+                    <a href="#nowhere">智能预约加热（谷电省钱）</a>
+                    <a href="#nowhere">6年整机保修服务</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">燃气热水器（天然气/液化气可选）</a>
+                    <a href="#nowhere">预售赠浴室五件套</a>
+                    <a href="#nowhere">零冷水技术（开机即热）</a>
+                    <a href="#nowhere">16L大出水量（适合多卫浴）</a>
+                    <a href="#nowhere">CO安防+水温伺服</a>
+                    <a href="#nowhere">四季恒温（±1℃）</a>
+                    <a href="#nowhere">支持高层抗风（8级）</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+
+            <!-- 分类为80的推荐商品 -->
+            <div cid="80" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">80L大容量储水式</a>
+                    <a href="#nowhere">一级能效（省电30%）</a>
+                    <a href="#nowhere">3000W速热（10分钟升温）</a>
+                    <a href="#nowhere">8.23预售立减200</a>
+                    <a href="#nowhere">专利防电墙技术</a>
+                    <a href="#nowhere">手机APP远程控制</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">扁桶设计（节省50%空间）</a>
+                    <a href="#nowhere">赠安装配件礼包</a>
+                    <a href="#nowhere">双胆分层加热（半胆/全胆）</a>
+                    <a href="#nowhere">活动价¥1299（日常1599）</a>
+                    <a href="#nowhere">6年整机保修</a>
+                    <a href="#nowhere">智能预约（谷电时段加热）</a>
+                    <a href="#nowhere">镁棒终身免更换</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">即热式（无需储水）</a>
+                    <a href="#nowhere">满2000减500（限前100名）</a>
+                    <a href="#nowhere">55℃防烫恒温</a>
+                    <a href="#nowhere">IPX4级防水</a>
+                    <a href="#nowhere">三档功率可调（2/3/5kW）</a>
+                    <a href="#nowhere">免费上门安装</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+
+            <!-- 分类为79的推荐商品 -->
+            <div cid="79" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">10英寸大轮胎（越野款）</a>
+                    <a href="#nowhere">续航30km（实测28km）</a>
+                    <a href="#nowhere">承重120kg（成人款）</a>
+                    <a href="#nowhere">8.23特惠价¥899</a>
+                    <a href="#nowhere">APP定速巡航</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">儿童款（3-12岁）</a>
+                    <a href="#nowhere">赠护具六件套</a>
+                    <a href="#nowhere">限速8km/h（安全设计）</a>
+                    <a href="#nowhere">蓝牙音乐播放</a>
+                    <a href="#nowhere">LED氛围灯</a>
+                    <a href="#nowhere">3C认证（安全保障）</a>
+                    <a href="#nowhere">晒单返现50</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">两轮自平衡（新手易上手）</a>
+                    <a href="#nowhere">满1000减150</a>
+                    <a href="#nowhere">折叠设计（方便携带）</a>
+                    <a href="#nowhere">IP54级防水（防溅）</a>
+                    <a href="#nowhere">1小时快充（充满80%）</a>
+                    <a href="#nowhere">两年质保服务</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+
+            <!-- 78 -->
+            <div cid="78" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">LDS激光导航（精准规划）</a>
+                    <a href="#nowhere">2500Pa大吸力（吸毛发/灰尘）</a>
+                    <a href="#nowhere">自动集尘（30天免倒垃圾）</a>
+                    <a href="#nowhere">预售直降500（到手¥1999）</a>
+                    <a href="#nowhere">APP远程操控</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">扫拖一体（电控水箱）</a>
+                    <a href="#nowhere">赠清洁液+替换抹布</a>
+                    <a href="#nowhere">虚拟墙分区（禁区设置）</a>
+                    <a href="#nowhere">续航180分钟（大户型适用）</a>
+                    <a href="#nowhere">自动回充（精准定位）</a>
+                    <a href="#nowhere">防跌落/防缠绕设计</a>
+                    <a href="#nowhere">3年核心部件保修</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">视觉导航（避障升级）</a>
+                    <a href="#nowhere">满3000减800（限旗舰款）</a>
+                    <a href="#nowhere">AI语音控制（支持多品牌音箱）</a>
+                    <a href="#nowhere">基站自清洁（免洗拖布）</a>
+                    <a href="#nowhere">地毯增压模式</a>
+                    <a href="#nowhere">活动前100名赠空气炸锅</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+
+            <!-- 77 -->
+            <div cid="77" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">低速慢榨（90转/分，保留营养）</a>
+                    <a href="#nowhere">汁渣分离（出汁率90%）</a>
+                    <a href="#nowhere">食品级不锈钢螺杆</a>
+                    <a href="#nowhere">8.23特惠¥399（日常599）</a>
+                    <a href="#nowhere">易拆卸清洗</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">多功能（榨果汁/做豆浆/绞肉）</a>
+                    <a href="#nowhere">赠食谱+清洁刷</a>
+                    <a href="#nowhere">300W纯铜电机（静音设计）</a>
+                    <a href="#nowhere">大容量进料口（免切水果）</a>
+                    <a href="#nowhere">安全锁设计（防误触）</a>
+                    <a href="#nowhere">2年整机保修</a>
+                    <a href="#nowhere">晒单赠保温杯</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">家用小型（不占地）</a>
+                    <a href="#nowhere">满500减100（限品牌款）</a>
+                    <a href="#nowhere">婴儿辅食适用（无残留）</a>
+                    <a href="#nowhere"> dishwasher可洗部件</a>
+                    <a href="#nowhere">LED工作指示灯</a>
+                    <a href="#nowhere">预售48小时内发货</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+
+            <!-- 76 -->
+            <div cid="76" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">520L大容量（对开门）</a>
+                    <a href="#nowhere">一级能效（每天0.9度电）</a>
+                    <a href="#nowhere">风冷无霜（不结霜免清理）</a>
+                    <a href="#nowhere">8.23预售直降1000</a>
+                    <a href="#nowhere">DEO净味系统</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">十字对开门（分区存储）</a>
+                    <a href="#nowhere">赠十年压缩机保修</a>
+                    <a href="#nowhere">变温抽屉（-20℃~5℃可调）</a>
+                    <a href="#nowhere">活动价¥3299（日常4299）</a>
+                    <a href="#nowhere">智能APP控温</a>
+                    <a href="#nowhere">双循环制冷（不串味）</a>
+                    <a href="#nowhere">节能补贴300元</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">小型冰箱（宿舍/租房用）</a>
+                    <a href="#nowhere">满2000减300（限三门款）</a>
+                    <a href="#nowhere">一级能效双变频</a>
+                    <a href="#nowhere">铂金净味（抗菌率99%）</a>
+                    <a href="#nowhere">假日模式（省电）</a>
+                    <a href="#nowhere">免费送货上门（含安装）</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+
+            <!-- 75 -->
+            <div cid="75" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">1.5匹变频（适用15-20㎡）</a>
+                    <a href="#nowhere">一级能效（APF4.8）</a>
+                    <a href="#nowhere">自清洁（56℃高温杀菌）</a>
+                    <a href="#nowhere">8.23活动价¥2199</a>
+                    <a href="#nowhere">智能WiFi控制</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">3匹柜机（客厅用）</a>
+                    <a href="#nowhere">赠安装支架+高空作业费</a>
+                    <a href="#nowhere">新一级能效（省电50%）</a>
+                    <a href="#nowhere">静音22分贝（不扰眠）</a>
+                    <a href="#nowhere">快速冷暖（30秒速冷）</a>
+                    <a href="#nowhere">高温自清洁（防霉）</a>
+                    <a href="#nowhere">十年压缩机保修</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">大1匹挂机（卧室用）</a>
+                    <a href="#nowhere">满3000减600（套购更划算）</a>
+                    <a href="#nowhere">防直吹设计（体感舒适）</a>
+                    <a href="#nowhere">光敏传感（夜间自动调暗）</a>
+                    <a href="#nowhere">独立除湿（梅雨季适用）</a>
+                    <a href="#nowhere">24小时上门安装</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+
+            <!-- 74 -->
+            <div cid="74" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">石英机芯（精准走时）</a>
+                    <a href="#nowhere">不锈钢表带（防过敏）</a>
+                    <a href="#nowhere">贝母表盘（珍珠光泽）</a>
+                    <a href="#nowhere">8.23特惠¥599（日常899）</a>
+                    <a href="#nowhere">30米防水（日常防水）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">轻奢款（施华洛世奇水晶镶嵌）</a>
+                    <a href="#nowhere">赠精美礼盒+保修卡</a>
+                    <a href="#nowhere">皮带款（真皮材质）</a>
+                    <a href="#nowhere">ins风设计（网红同款）</a>
+                    <a href="#nowhere">直径28mm（小巧精致）</a>
+                    <a href="#nowhere">两年全国联保</a>
+                    <a href="#nowhere">满1000减200（限品牌款）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">智能女表（测心率/步数）</a>
+                    <a href="#nowhere">预售赠替换表带</a>
+                    <a href="#nowhere">玫瑰金配色（显白）</a>
+                    <a href="#nowhere">续航7天（快充）</a>
+                    <a href="#nowhere">支持消息提醒</a>
+                    <a href="#nowhere">晒单赠手链</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+
+            <!-- 73 -->
+
+            <div cid="73" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">自动机械机芯（无需电池）</a>
+                    <a href="#nowhere">精钢表壳（耐磨）</a>
+                    <a href="#nowhere">蓝宝石玻璃镜面（防刮）</a>
+                    <a href="#nowhere">8.23预售直降300</a>
+                    <a href="#nowhere">100米防水（可游泳）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">商务款（大三针设计）</a>
+                    <a href="#nowhere">赠皮表带+调表器</a>
+                    <a href="#nowhere">夜光指针（夜间可读）</a>
+                    <a href="#nowhere">直径42mm（大气）</a>
+                    <a href="#nowhere">蝴蝶扣设计（佩戴方便）</a>
+                    <a href="#nowhere">五年全球联保</a>
+                    <a href="#nowhere">活动价¥1299（日常1599）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">运动款（计时功能）</a>
+                    <a href="#nowhere">满2000减500（限机械表）</a>
+                    <a href="#nowhere">陶瓷表圈（耐刮花）</a>
+                    <a href="#nowhere">透底设计（看机芯运作）</a>
+                    <a href="#nowhere">精钢表带（可调节长度）</a>
+                    <a href="#nowhere">赠定制表盒</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+
+            <!-- 72 -->
+
+            <div cid="72" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">头层牛皮（真皮质感）</a>
+                    <a href="#nowhere">商务款（简约设计）</a>
+                    <a href="#nowhere">多隔层（分类收纳）</a>
+                    <a href="#nowhere">8.23特惠¥299（日常499）</a>
+                    <a href="#nowhere">防盗拉链（安全）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">大容量（可装10.9寸平板）</a>
+                    <a href="#nowhere">赠保养油+防尘袋</a>
+                    <a href="#nowhere">荔枝纹（耐磨防刮）</a>
+                    <a href="#nowhere">黑色/棕色两色可选</a>
+                    <a href="#nowhere">真皮认证（假一赔十）</a>
+                    <a href="#nowhere">3年质保（非人为损坏）</a>
+                    <a href="#nowhere">满500减100（限品牌款）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">轻奢款（金属logo装饰）</a>
+                    <a href="#nowhere">预售赠钥匙包</a>
+                    <a href="#nowhere">可手提/可斜挎（多功能）</a>
+                    <a href="#nowhere">内部植绒（保护电子产品）</a>
+                    <a href="#nowhere">尺寸28×18cm（实用）</a>
+                    <a href="#nowhere">晒单返现30</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+
+            <!-- 71 -->
+
+            <div cid="71" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">羊毛混纺（挺括抗皱）</a>
+                    <a href="#nowhere">商务正装（修身剪裁）</a>
+                    <a href="#nowhere">单排双扣（经典款）</a>
+                    <a href="#nowhere">8.23活动价¥799（套装）</a>
+                    <a href="#nowhere">免费改衣（含裤长/袖长）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">休闲西服（单件可穿）</a>
+                    <a href="#nowhere">赠领结+防尘袋</a>
+                    <a href="#nowhere">弹力面料（舒适不紧绷）</a>
+                    <a href="#nowhere">黑色/藏青/灰色三色</a>
+                    <a href="#nowhere">微弹设计（适合通勤）</a>
+                    <a href="#nowhere">支持7天无理由退换</a>
+                    <a href="#nowhere">满1000减200（套装更划算）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">新郎结婚礼服（三件套）</a>
+                    <a href="#nowhere">预售赠衬衫+皮鞋护理液</a>
+                    <a href="#nowhere">意大利工艺（手工缝制）</a>
+                    <a href="#nowhere">修身版型（显身材）</a>
+                    <a href="#nowhere">可定制绣字（姓名缩写）</a>
+                    <a href="#nowhere">活动前50名赠西装架</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+
+
+            <!-- 69 -->
+            <div cid="69" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">真皮休闲鞋（头层牛皮）</a>
+                    <a href="#nowhere">轻便软底（走路不累）</a>
+                    <a href="#nowhere">百搭款式（牛仔裤/休闲裤）</a>
+                    <a href="#nowhere">8.23特惠¥359（日常559）</a>
+                    <a href="#nowhere">防滑橡胶底</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">运动老爹鞋（增高3cm）</a>
+                    <a href="#nowhere">赠袜子两双</a>
+                    <a href="#nowhere">透气网面（不闷脚）</a>
+                    <a href="#nowhere">ins潮款（网红同款）</a>
+                    <a href="#nowhere">41-46码全（标准码）</a>
+                    <a href="#nowhere">30天质量问题包退换</a>
+                    <a href="#nowhere">满500减100（两双更省）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">商务皮鞋（牛津鞋款）</a>
+                    <a href="#nowhere">预售赠鞋油+鞋刷</a>
+                    <a href="#nowhere">光面设计（正式场合）</a>
+                    <a href="#nowhere">真皮大底（耐磨）</a>
+                    <a href="#nowhere">圆头设计（不挤脚）</a>
+                    <a href="#nowhere">晒单赠鞋垫</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+
+            <!-- 68 -->
+            <div cid="68" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">真丝连衣裙（桑蚕丝）</a>
+                    <a href="#nowhere">收腰设计（显身材）</a>
+                    <a href="#nowhere">中长款（过膝）</a>
+                    <a href="#nowhere">8.23活动价¥499（日常799）</a>
+                    <a href="#nowhere">多色可选（黑/白/杏）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">纯棉T恤（宽松款）</a>
+                    <a href="#nowhere">赠同款发带</a>
+                    <a href="#nowhere">新疆长绒棉（透气亲肤）</a>
+                    <a href="#nowhere">百搭基础款（可叠穿）</a>
+                    <a href="#nowhere">S-XXL码全（显瘦）</a>
+                    <a href="#nowhere">支持7天无理由退换</a>
+                    <a href="#nowhere">满300减60（三件8折）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">西装外套（通勤款）</a>
+                    <a href="#nowhere">预售赠丝巾</a>
+                    <a href="#nowhere">垂坠感面料（抗皱）</a>
+                    <a href="#nowhere">短款设计（显腿长）</a>
+                    <a href="#nowhere">可盐可甜（多种搭配）</a>
+                    <a href="#nowhere">活动前100名赠衣架</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+
+            <!-- 64 -->
+            <div cid="64" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">偏光镜片（防紫外线UV400）</a>
+                    <a href="#nowhere">蛤蟆镜款（经典百搭）</a>
+                    <a href="#nowhere">超轻镜框（佩戴舒适）</a>
+                    <a href="#nowhere">8.23特惠¥159（日常299）</a>
+                    <a href="#nowhere">多色镜片可选</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">复古圆框（文艺风）</a>
+                    <a href="#nowhere">赠镜盒+镜布+防滑套</a>
+                    <a href="#nowhere">TR90镜框（耐摔）</a>
+                    <a href="#nowhere">男女通用款</a>
+                    <a href="#nowhere">可配近视度数（定制）</a>
+                    <a href="#nowhere">30天质量问题包换</a>
+                    <a href="#nowhere">满200减50（两副更省）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">明星同款（大框显脸小）</a>
+                    <a href="#nowhere">预售赠太阳帽</a>
+                    <a href="#nowhere">高清偏光（开车专用）</a>
+                    <a href="#nowhere">金属镜框（质感好）</a>
+                    <a href="#nowhere">防油污镜片（易清洁）</a>
+                    <a href="#nowhere">晒单返现20</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+
+            <!-- 60 -->
+            <div cid="60" class="productsAsideCategorys">
+                <div class="row show1">
+                    <a href="#nowhere">0-7岁通用（isofix接口）</a>
+                    <a href="#nowhere">3C+ECE双重认证</a>
+                    <a href="#nowhere">五点式安全带（稳固）</a>
+                    <a href="#nowhere">8.23活动价¥599（日常899）</a>
+                    <a href="#nowhere">可360°旋转（方便抱娃）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">9个月-12岁（成长型）</a>
+                    <a href="#nowhere">赠凉席+安全带护垫</a>
+                    <a href="#nowhere">ISOFIX+LATCH双接口</a>
+                    <a href="#nowhere">侧翼防护（防碰撞）</a>
+                    <a href="#nowhere">可调节靠背角度（160°躺）</a>
+                    <a href="#nowhere">五点式/三点式可切换</a>
+                    <a href="#nowhere">满1000减200（品牌款）</a>
+                    <div class="seperator"></div>
+                </div>
+                <div class="row show1">
+                    <a href="#nowhere">新生儿专用（反向安装）</a>
+                    <a href="#nowhere">预售赠安装服务</a>
+                    <a href="#nowhere">仿生蛋壳设计（缓冲）</a>
+                    <a href="#nowhere">透气面料（不闷汗）</a>
+                    <a href="#nowhere">带遮阳棚（防晒）</a>
+                    <a href="#nowhere">5年质保（核心部件）</a>
+                    <div class="seperator"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 轮播图头部结束 -->
+
+    <!-- 轮播图4张图片 -->
+    <div data-ride="carousel" class="carousel-of-product carousel slide" id="carousel-of-product">
+        <ol class="carousel-indicators">
+            <li data-slide-to="0" data-target="#carousel-of-product" class="active"></li>
+            <li data-slide-to="1" data-target="#carousel-of-product"></li>
+            <li data-slide-to="2" data-target="#carousel-of-product"></li>
+            <li data-slide-to="3" data-target="#carousel-of-product"></li>
+        </ol>
+
+        <!-- bootstrap轮播图组件 -->
+        <div role="list" class="carousel-inner">
+            <!-- Bootstrap 轮播要求必须有一个默认显示的项，
+                 active 类用于标记当前显示的轮播项（首次加载时显示带 active 的图片） -->
+            <div class="item active">
+                <img src="./img/lunbo/1.jpg" class="carousel carouselImage">
+            </div>
+            <div class="item">
+                <img src="./img/lunbo/2.jpg" class="carouselImage">
+            </div>
+            <div class="item">
+                <img src="./img/lunbo/3.jpg" class="carouselImage">
+            </div>
+            <div class="item">
+                <img src="./img/lunbo/4.jpg" class="carouselImage">
+            </div>
+        </div>
+
+    </div>
+    <!-- 用于设置轮播组件的背景 -->
+    <div class="carouselBackgroundDiv"></div>
+
+    <!------------------------ 轮播图4张图片结束 --------------------------------->
+
+
+    <!-- 分类和推荐产品列表 -->
+    <div class="homepageCategoryProducts">
+        <div class="eachHomepageCategoryProducts">
+            <div class="left-mark"></div>
+            <span class="categoryTitle"><strong>太阳镜</strong></span>
+            <br>
+            <!-- 产品列表--太阳镜 -->
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px"
+                        src="https://how2j.cn/tmall/img/productSingle_middle/9543.jpg"></a>
+                <a href="nowhere" class="productItemDescLink">
+                    <span class="productItemDesc">【热销爆款】 好先生同款墨镜孙红雷偏光男士太阳镜韩明星</span>
+                </a>
+                <span class="productPrice">97.5</span>
+            </div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px"
+                        src="https://how2j.cn/tmall/img/productSingle_middle/9532.jpg"></a>
+                <a href="nowhere" class="productItemDescLink">
+                    <span class="productItemDesc">【热销爆款】 陌森太阳眼镜男女2016偏光定制驾驶近视</span>
+                </a>
+                <span class="productPrice">518.70</span>
+            </div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px"
+                        src="https://how2j.cn/tmall/img/productSingle_middle/9521.jpg"></a>
+                <a href="nowhere" class="productItemDescLink">
+                    <span class="productItemDesc">【热销爆款】 帕莎Prsr太阳镜女偏光镜潮范冰冰同款女</span>
+                </a>
+                <span class="productPrice">624</span>
+            </div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px"
+                        src="https://how2j.cn/tmall/img/productSingle_middle/9510.jpg"></a>
+                <a href="#nowhere" class="productItemDescLink">
+                    <span class="productItemDesc">【热销爆款】 变色眼镜男女款半框太阳镜大框潮流防辐射防</span></a>
+                <span class="productPrice">170.00</span>
+            </div>
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px"
+                        src="https://how2j.cn/tmall/img/productSingle_middle/9499.jpg"></a>
+                <a href="#nowhere" class="productItemDescLink">
+                    <span class="productItemDesc">【热销爆款】新款男士偏光太阳镜日夜两用墨镜潮运动开车</span></a>
+                <span class="productPrice">551.00</span>
+            </div>
+            <!-- 清除浮动 -->
+            <div style="clear:both"></div>
+        </div>
+
+        <!-- 产品列表--安全座椅 -->
+        <div class="eachHomepageCategoryProducts">
+            <div class="left-mark"></div>
+            <span class="categoryTitle"><strong>安全座椅</strong></span>
+            <br>
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px"
+                        src="https://how2j.cn/tmall/img/productSingle_middle/10192.jpg"></a>
+                <a href="#nowhere" class="productItemDescLink">
+                    <span class="productItemDesc">【热销爆款】新生儿婴儿提篮式安全座椅汽车用车载儿童安全座椅</span></a>
+                <span class="productPrice">882.00</span>
+            </div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px"
+                        src="https://how2j.cn/tmall/img/productSingle_middle/10181.jpg"></a>
+                <a href="#nowhere" class="productItemDescLink">
+                    <span class="productItemDesc">【热销爆款】REEBABY汽车儿童安全座椅ISOFI</span></a>
+                <span class="productPrice">1344.00</span>
+            </div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px"
+                        src="https://how2j.cn/tmall/img/productSingle_middle/10170.jpg"></a>
+                <a href="#nowhere" class="productItemDescLink">
+                    <span class="productItemDesc">【热销爆款】REEBABY儿童安全座椅9个月-12岁</span></a>
+                <span class="productPrice">1216.00</span>
+            </div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px"
+                        src="https://how2j.cn/tmall/img/productSingle_middle/10192.jpg"></a>
+                <a href="#nowhere" class="productItemDescLink">
+                    <span class="productItemDesc">【热销爆款】好孩子汽车儿童安全座椅goodbaby9</span></a>
+                <span class="productPrice">1291.90</span>
+            </div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px"
+                        src="https://how2j.cn/tmall/img/productSingle_middle/10148.jpg"></a>
+                <a href="#nowhere" class="productItemDescLink">
+                    <span class="productItemDesc">【热销爆款】惠尔顿儿童安全座椅isofix硬接口汽车</span></a>
+                <span class="productPrice">1789.80</span>
+            </div>
+            <!-- 清除浮动 -->
+            <div style="clear: both;"></div>
+        </div>
+
+        <div class="eachHomepageCategoryProducts">
+            <div class="left-mark"></div>
+            <span class="categoryTitle">平板电视</span>
+            <div style="clear:both"></div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px" src="https://how2j.cn/tmall/img/productSingle_middle/676.jpg"></a>
+                <a class="productItemDescLink" href="#nowhere">
+                    <span class="productItemDesc">[热销] 夏普屏PANDA/熊猫 LE39D71S</span></a>
+                <span class="productPrice">1,874.25</span>
+            </div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px" src="https://how2j.cn/tmall/img/productSingle_middle/665.jpg"></a>
+                <a class="productItemDescLink" href="#nowhere">
+                    <span class="productItemDesc">[热销] Changhong/长虹 65S1安卓智</span></a>
+                <span class="productPrice">3,824.16</span>
+            </div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px" src="https://how2j.cn/tmall/img/productSingle_middle/654.jpg"></a>
+                <a class="productItemDescLink" href="#nowhere">
+                    <span class="productItemDesc">[热销]Hisense/海信 LED40EC52</span></a>
+                <span class="productPrice">1,439.40</span>
+            </div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px" src="https://how2j.cn/tmall/img/productSingle_middle/643.jpg"></a>
+                <a class="productItemDescLink" href="#nowhere">
+                    <span class="productItemDesc">[热销]Hisense/海信 LED49EC32</span></a>
+                <span class="productPrice">1,679.40</span>
+            </div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px" src="https://how2j.cn/tmall/img/productSingle_middle/632.jpg"></a>
+                <a class="productItemDescLink" href="#nowhere">
+                    <span class="productItemDesc">[热销]Konka/康佳 LED32S1卧室32</span></a>
+                <span class="productPrice">1,104.35</span>
+            </div>
+
+            <div style="clear:both"></div>
+        </div>
+
+        <div class="eachHomepageCategoryProducts">
+            <div class="left-mark"></div>
+            <span class="categoryTitle">马桶</span>
+            <div style="clear:both"></div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px"
+                        src="https://how2j.cn/tmall/img/productSingle_middle/1324.jpg"></a>
+                <a class="productItemDescLink" href="#nowhere">
+                    <span class="productItemDesc">[热销]纳蒂兰卡 1082卫浴洁具 钻石切边 坐</span></a>
+                <span class="productPrice">1,710.00</span>
+            </div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px"
+                        src="https://how2j.cn/tmall/img/productSingle_middle/1313.jpg"></a>
+                <a class="productItemDescLink" href="#nowhere">
+                    <span class="productItemDesc">[热销]德国DGPOSY超漩式彩色马桶缓降坐便器</span></a>
+                <span class="productPrice">1,799.25</span>
+            </div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px"
+                        src="https://how2j.cn/tmall/img/productSingle_middle/1302.jpg"></a>
+                <a class="productItemDescLink" href="#nowhere">
+                    <span class="productItemDesc">[热销]纳蒂兰卡1066卫浴漩冲虹吸式马桶350</span></a>
+                <span class="productPrice">1,503.00</span>
+            </div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px"
+                        src="https://how2j.cn/tmall/img/productSingle_middle/1291.jpg"></a>
+                <a class="productItemDescLink" href="#nowhere">
+                    <span class="productItemDesc">[热销]箭牌马桶/ARROW AB1118脲醛盖</span></a>
+                <span class="productPrice">1,482.00</span>
+            </div>
+
+            <div class="productItem">
+                <a href="#nowhere"><img width="100px"
+                        src="https://how2j.cn/tmall/img/productSingle_middle/1280.jpg"></a>
+                <a class="productItemDescLink" href="#nowhere">
+                    <span class="productItemDesc">[热销]乐洁士智能马桶高品质全自动遥控感应一体式</span>
+                </a>
+                <span class="productPrice">8,512.00</span>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+
+        <img src="./img/site/end.png" class="endPng" id="endPng">
+    </div>
+
+
+
+    <!-- 页脚 -->
+    <div display="block" class="footer" id="footer">
+        <div class="footer-ensure" id="footer-ensure">
+            <a href="#nowhere"><img src="img/site/ensure.png" id="ensure"></a>
+        </div>
+        <div class="footer-desc" id="footer-desc">
+            <div class="descColumn">
+                <span class="descColumnTitle">购物指南</span>
+                <a href="#nowhere">免费注册</a>
+                <a href="#nowhere">开通支付宝</a>
+                <a href="#nowhere">支付宝充值</a>
+            </div>
+
+            <div class="descColumn">
+                <span class="descColumnTitle">天猫保障</span>
+                <a href="#nowhere">发票保障</a>
+                <a href="#nowhere">售后规则</a>
+                <a href="#nowhere">缺货赔付</a>
+            </div>
+
+            <div class="descColumn">
+                <span class="descColumnTitle">支付方式</span>
+                <a href="#nowhere">快捷支付</a>
+                <a href="#nowhere">信用卡</a>
+                <a href="#nowhere">蚂蚁花呗</a>
+                <a href="nowhere">货到付款</a>
+            </div>
+
+            <div class="descColumn">
+                <span class="descColumnTitle">商家服务</span>
+                <a href="#nowhere">商家入驻</a>
+                <a href="#nowhere">商家中心</a>
+                <a href="#nowhere">天猫智库</a>
+                <a href="#nowhere">天猫规则</a>
+                <a href="#nowhere">物流服务</a>
+                <a href="#nowhere">喵言喵语</a>
+                <a href="#nowhere">运营服务</a>
+            </div>
+
+            <div class="descColumn">
+                <span class="descColumnTitle">手机天猫</span>
+                <a href="#nowhere"><img src="img/site/ma.png"></a>
+            </div>
+
+        </div>
+        <!-- 清除浮动影响 -->
+        <div style="clear: both;"></div>
+
+        <div id="footer" class="footer"></div>
+        <img src="img/site/cateye.png" class="cateye" id="cateye">
+        <div class="copyRight" id="copyRight">
+            <div class="white-link">
+                <a href="#nowhere">关于天猫</a>
+                <a href="#nowhere">帮助中心</a>
+                <a href="#nowhere">开放平台</a>
+                <a href="#nowhere">诚信网站</a>
+                <a href="#nowhere">商家入驻</a>
+                <a href="#nowhere">营业执照</a>
+                <a href="#nowhere">网络招聘</a>
+                <a href="#nowhere">联系我们</a>
+            </div>
+
+            <div class="white-link">
+                <a href="#nowhere">阿里巴巴集团<span class="slash">|</span></a>
+                <a href="#nowhere">淘宝网<span class="slash">|</span></a>
+                <a href="#nowhere">天猫<span class="slash">|</span></a>
+                <a href="#nowhere">聚划算<span class="slash">|</span></a>
+                <a href="#nowhere">全球速卖通<span class="slash">|</span></a>
+                <a href="#nowhere">阿里巴巴国际交易市场<span class="slash">|</span></a>
+                <a href="#nowhere">1688<span class="slash">|</span></a>
+                <a href="#nowhere">阿里妈妈<span class="slash">|</span></a>
+                <a href="#nowhere">蚂蚁金服<span class="slash">|</span></a>
+                <a href="#nowhere">聚美优品<span class="slash">|</span></a>
+                <a href="#nowhere">优酷土豆<span class="slash">|</span></a>
+                <a href="#nowhere">艺龙网<span class="slash">|</span></a>
+                <a href="#nowhere">阿里旅行<span class="slash">|</span></a>
+                <a href="#nowhere">钉钉<span class="slash">|</span></a>
+                <a href="#nowhere">支付宝 <span class="slash">|</span></a>
+            </div>
+
+            <div class="license">
+                <span>增值电信业务经营许可证：京ICP证070791号 京公网安备11010502035084号</span><br>
+                <span>网络文化经营许可证：京ICP证110537号 京公网安备11010502035084号</span><br>
+                <span>互联网违法和不良信息举报电话：010-82610110 举报邮箱：<EMAIL>1651739550@qq.com</EMAIL></span><br>
+                <span>互联网药品信息服务资格证编号：(京)-2018-0010 </span><br>
+                <span>互联网药品交易服务资格证编号：(京)-2018-0010</span>
+                <div class="copyRightYear">© 2003-2016 TMALL.COM 版权所有</div>
+            </div>
+            <div>
+                <img src="img/site/copyRight1.jpg">
+                <img src="img/site/copyRight2.jpg">
+            </div>
+        </div>
+        <!-- 页脚结束 -->
+    </div>
+
+
 </body>
 
 </html>

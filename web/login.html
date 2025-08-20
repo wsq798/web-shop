@@ -33,7 +33,15 @@
         cursor: pointer;
     }
     .login button:hover { background-color: #45a049; }
+    .links { margin-top: 10px; }
+    .links a {
+        margin: 0 5px;
+        color: #4CAF50;
+        text-decoration: none;
+    }
+    .links a:hover { text-decoration: underline; }
 </style>
+
 <body>
     <h1 style="text-align: center">Login</h1>
     <!-- 修改form标签，添加id方便JS绑定事件 -->
@@ -48,6 +56,12 @@
             <input type="password" id="password" name="password" placeholder="Password" required>
         </div>
         <button type="submit">登录</button>
+
+        <!-- 注册和忘记密码链接 -->
+        <div class="links">
+            <a href="register.html">注册</a>
+            <a href="forget.html">忘记密码?</a>
+        </div>
     </form>
 
     <script>
@@ -85,6 +99,19 @@
                 });
             });
         });
+        
+        // 点击事件绑定到注册按钮上
+        $('#registerLink').click(function(e) {
+                e.preventDefault(); // 阻止默认跳转（若需验证）
+                window.location.href = 'register.html'; // 直接跳转
+            });
+
+            // 忘记密码链接点击事件（可选自定义逻辑）
+            $('#forgetLink').click(function(e) {
+                e.preventDefault();
+                window.location.href = 'forget.html';
+            });
+
     </script>
 </body>
 </html>
